@@ -345,6 +345,28 @@ def convert_to_24hour_time(datetime_str):
         # If parsing fails, return original string
         return str(datetime_str)
 
+def convert_to_12hour_time(time_str):
+    """
+    Convert 24-hour time format to 12-hour time format with AM/PM
+    
+    Parameters:
+    time_str (str): Time string in 24-hour format like '19:35' or '07:30'
+    
+    Returns:
+    str: Time in 12-hour format like '07:35 PM' or '07:30 AM', or original string if conversion fails
+    """
+    if not time_str or pd.isna(time_str):
+        return ''
+    
+    try:
+        # Parse the time string (handles HH:MM format)
+        dt = datetime.strptime(str(time_str), '%H:%M')
+        # Return time in 12-hour format with AM/PM
+        return dt.strftime('%I:%M %p')
+    except:
+        # If parsing fails, return original string
+        return str(time_str)
+    
 def set_attendance_remarks(participants_data, session_start_time, session_end_time):
     """
     Set remarks based on join/leave time thresholds
@@ -526,8 +548,13 @@ def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_ma
             participant['Join Time'] = convert_to_24hour_time(participant['Join Time'])
             participant['Leave Time'] = convert_to_24hour_time(participant['Leave Time'])
         
+        
         participants_data = set_attendance_remarks(participants_data, start_time, end_time)        
-       
+
+        # Convert back to 12-hour format for output
+        for participant in participants_data:
+            participant['Join Time'] = convert_to_12hour_time(participant['Join Time'])
+            participant['Leave Time'] = convert_to_12hour_time(participant['Leave Time'])
 
         if ENABLE_DURATION_THRESHOLD:
             main_sheet_data, below_threshold_data = split_data_by_duration_threshold(participants_data, DURATION_THRESHOLD)

@@ -81,4 +81,5 @@ parent_folder/
 
 *** How to run: 
 `python.exe attendance_extractor_2.2.py "D:\Work\py-ws\attendance_extractor\V2\KARMH-B02" "20-12-25" "KARMH-B02"`
-`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\attendance_extractor\V2\TSAP-B02" "20-12-25" "TSAP-B02"`
+`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\TSAP-B02" "24-12-25" "TSAP-B02"`
+`python.exe attendance_extractor_2.3.py "D:\Work\py-ws\qc\01_attendance_extractor\TSAP-B02" "24-12-25" "TSAP-B02"`
