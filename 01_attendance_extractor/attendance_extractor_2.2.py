@@ -16,6 +16,18 @@ class AttendanceMasterGenerator:
     Filters records by ID prefix and creates a consolidated output file.
     """
     
+    # Column configuration constants
+    REQUIRED_COLUMNS = {
+        'id': 'Assigned ID#',
+        'region': 'Region',
+        'naqeeb': 'Naqeeb'
+    }
+    
+    REQUIRED_COLUMNS_1 = {
+        'id': 'ID# Assigned',
+        'region': 'Region',
+        'naqeeb': 'Naqeeb'
+    }
     def __init__(self, parent_folder: str, attendance_date: str, id_prefix: str, target_sheet_name: str = "KARMH-B02"):
         """
         Initialize the attendance generator.
@@ -137,10 +149,11 @@ class AttendanceMasterGenerator:
             #         print(f"    Col {col_idx}: '{cell.value}'")
             
             # Find column indices
-            id_col = self.find_column_index(ws, header_row, "Assigned ID#")
-            region_col = self.find_column_index(ws, header_row, "Region")
-            naqeeb_col = self.find_column_index(ws, header_row, "Naqeeb")
+            id_col = self.find_column_index(ws, header_row, self.REQUIRED_COLUMNS['id'])
+            region_col = self.find_column_index(ws, header_row, self.REQUIRED_COLUMNS['region'])
+            naqeeb_col = self.find_column_index(ws, header_row, self.REQUIRED_COLUMNS['naqeeb'])
             attendance_col = self.find_date_column(ws, header_row, self.attendance_date)
+            # attendance_col = self.find_column_index(ws, header_row-1, self.attendance_date)
             
             print(f"  Column search: ID#={id_col}, Region={region_col}, Naqeeb={naqeeb_col}, {self.attendance_date}={attendance_col}")
             

@@ -80,6 +80,15 @@ parent_folder/
 - `shutil` - File operations
 
 *** How to run: 
-`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\attendance_extractor\V2\KARMH-B02" "20-12-25" "KARMH-B02"`
-`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\TSAP-B02" "24-12-25" "TSAP-B02"` # Without Comments
+`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\KARMH-B02" "07-03-26" "KARMH-B02"`
+`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\TSAP-B02" "07-01-26" "TSAP-B02"` # Without Comments
+`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\HYDLH-B01" "23 Dec 25" "Attendance"` # Without Comments
+`python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\HYDLH-B01" "23`nDec`n25" "Attendance"` # Without Comments
 `python.exe attendance_extractor_2.3.py "D:\Work\py-ws\qc\01_attendance_extractor\TSAP-B02" "24-12-25" "TSAP-B02"` # With Comments
+
+"23
+Dec
+25"
+"23
+Dec
+25"
