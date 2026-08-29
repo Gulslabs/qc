@@ -15,9 +15,12 @@ This repository contains scripts for attendance extraction, Zoom participant con
 You should now see files like:
 - `README.md`
 - `requirements.txt`
+- `Watch Me.mp4`
 - `01_attendance_extractor/`
 - `02_zoom_participant_csv_to_timesheet_extractor/`
 - `03_timesheet_report_appender/`
+
+> Important: Please watch the video before running any of the scripts: [Watch Me.mp4](https://github.com/Gulslabs/qc/blob/main/Watch%20Me.mp4?raw=1). It explains the setup and process clearly.
 
 ## Install Python on Windows
 
