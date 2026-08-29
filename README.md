@@ -7,7 +7,7 @@ This repository contains scripts for attendance extraction, Zoom participant con
 1. Open `https://github.com/Gulslabs/qc` GitHub repository page.
 2. Click the green "Code" button.
 3. Select "Download ZIP".
-4. Save the ZIP file to your computer, for example to your Desktop or Downloads folder.
+4. Save the ZIP file to your computer, for example to your  Downloads folder.
 5. After download, right-click the ZIP file and choose "Extract All".
 6. Choose a folder such as `C:\Users\YourName\Downloads\qc` or a folder on your Desktop.
 7. After extraction, open that folder in File Explorer.
@@ -49,54 +49,57 @@ py -m pip install -r requirements.txt
 This installs the packages needed by the scripts in the project folders.
 
 ## 1) Attendance Extractor
-Location: `01_attendance_extractor`
 
 Run the program:
 
 ```bash
-python.exe attendance_extractor_2.3.py "D:\Work\py-ws\qc\01_attendance_extractor\TSAP-B02" "24-12-25" "TSAP-B02"
-```
+cd C:\Users\YourName\Downloads\qc\01_attendance_extractor\
 
+python.exe attendance_extractor_2.3.py "C:\Users\YourName\Downloads\qc\01_attendance_extractor\KARMH-B02" "24-12-25" "KARMH-B02"
+```
 This script reads attendance files from a folder and creates a consolidated master sheet.
 
 Input parameters:
 - `parent_folder`: Folder containing the Naqeeb attendance sheets.
 - `attendance_date`: Date to extract, such as `22-08-26`, `07-01-26`, or `23 Dec 25`.
-- `id_prefix`: ID filter used to keep matching records, such as `KARMH-B02`, `TSAP-B02`, or `Attendance`.
+- `id_prefix`: ID filter used to keep matching records, such as `KARMH-B02`, `TSAP-B02`.
 
-Example:
-
-```bash
-python.exe attendance_extractor_2.2.py "D:\Work\py-ws\qc\01_attendance_extractor\KARMH-B02" "22-08-26" "KARMH-B02"
-```
+Output generated:
+- A master attendance Excel file named like `master_sheet_24-12-25.xlsx` inside the same folder.
+- A `Processed/` folder containing the original Excel files after they are moved and archived.
 
 ---
 
 ## 2) Zoom Participant CSV to Timesheet Extractor
-Location: `02_zoom_participant_csv_to_timesheet_extractor`
-
 Run the program:
 
 ```bash
+cd C:\Users\YourName\Downloads\qc\02_zoom_participant_csv_to_timesheet_extractor
+
 python.exe .\csv_to_timesheet_extractor_v3.py .\participants_89078282589.csv .\naqeeb_to_initial_KARMH-02.csv "21:05" "22:50"
 ```
 
 This script converts a Zoom participant export CSV into a formatted Excel timesheet with attendance checks and mapping to Naqeeb names.
 
 Input parameters:
-- `CSV File`: Zoom participant export file.
+- `CSV File`: Participant file downloaded from Zoom.
 - `naqeeb_mapping.csv`: CSV file with Naqeeb names, initials, and student ID range.
 - `Start Time`: Session start time in 24-hour format, for example `21:05`.
 - `End Time`: Session end time in 24-hour format, for example `22:50`.
 
+Output generated:
+- An Excel timesheet file named similar to `Time_Sheet_KARMH-B02_Surah_Az-Zukhruf_22AUG2026.xlsx`.
+- A formatted attendance sheet with join/leave times, mapped Naqeeb names, and attendance remarks.
+
 ---
 
 ## 3) Timesheet Report Appender
-Location: `03_timesheet_report_appender`
 
 Run the program:
 
 ```bash
+cd C:\Users\YourName\Downloads\qc\03_timesheet_report_appender
+
 python timesheet_report_appender_v1.py Time_Sheet_KARMH-B02_Surah_Az-Zukhruf_22AUG2026.xlsx 5
 ```
 
@@ -105,6 +108,11 @@ This script appends time-based attendance summary reports to an Excel timesheet 
 Input parameters:
 - `Excel File`: The timesheet Excel file to process.
 - `bin_size_minutes`: The size of each time bin in minutes, for example `5`.
+
+Output generated:
+- A new Excel file named like `<original_name>_with_reports.xlsx`.
+- Additional columns for time bins and student counts for join and leave times.
+- A chart summary based on the time distribution.
 
 ---
 
