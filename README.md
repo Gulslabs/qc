@@ -4,7 +4,7 @@ This repository contains scripts for attendance extraction, Zoom participant con
 
 ## Download this project from GitHub
 
-1. Open the GitHub repository page.
+1. Open `https://github.com/Gulslabs/qc` GitHub repository page.
 2. Click the green "Code" button.
 3. Select "Download ZIP".
 4. Save the ZIP file to your computer, for example to your Desktop or Downloads folder.
@@ -56,7 +56,6 @@ pandas>=2.1.3
 numpy>=1.26.0
 ```
 
-No virtual environment is required for normal use.
 
 ## 1) Attendance Extractor
 Location: `01_attendance_extractor`
