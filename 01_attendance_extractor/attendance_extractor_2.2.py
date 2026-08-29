@@ -47,7 +47,7 @@ class AttendanceMasterGenerator:
         self.processed_folder.mkdir(exist_ok=True)
         
         # Valid attendance values
-        self.valid_values = {'-', 'P', 'A', 'L', 'D'}
+        self.valid_values = {'-', 'P', 'A', 'L', 'D', 'PH'}
         
         # Track skipped records
         self.skipped_records = []

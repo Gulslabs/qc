@@ -1,0 +1,8 @@
+# Exclude archived content
+archieved/
+
+# Exclude Excel files anywhere in the repo
+**/*.xlsx
+
+# Exclude backup files anywhere in the repo
+**/*.bkp
