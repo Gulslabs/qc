@@ -48,15 +48,6 @@ py -m pip install -r requirements.txt
 
 This installs the packages needed by the scripts in the project folders.
 
-If you want to see what is included, the file contains:
-
-```txt
-openpyxl>=3.1.2
-pandas>=2.1.3
-numpy>=1.26.0
-```
-
-
 ## 1) Attendance Extractor
 Location: `01_attendance_extractor`
 
