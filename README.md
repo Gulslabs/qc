@@ -20,7 +20,7 @@ You should now see files like:
 - `02_zoom_participant_csv_to_timesheet_extractor/`
 - `03_timesheet_report_appender/`
 
-> Important: Please watch the video before running any of the scripts: [Watch Me.mp4](https://github.com/Gulslabs/qc/blob/main/Watch%20Me.mp4?raw=1). It explains the setup and process clearly.
+> Important: Please watch the video before running any of the scripts: [Watch Me.mp4](https://github.com/Gulslabs/qc/blob/main/WATCH%20ME.mp4?raw=1). It explains the setup and process clearly.
 
 ## Install Python on Windows
 
