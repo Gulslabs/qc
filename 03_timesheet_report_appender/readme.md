@@ -19,9 +19,7 @@ AJ_013_vizarath_Ali              20:42        22:47
 ### Usage Command Line (Recommended)
 
 ```bash
-python timesheet_report_appender_v1.py Time_Sheet_KARMH-B02_Surah_Al-Ambiya.xlsx 3
 python timesheet_report_appender_v1.py Time_Sheet_KARMH-B02_Surah_Az-Zukhruf_22AUG2026.xlsx 5
-python  attendance_timeline.py Time_Sheet_KARMH-B02_Surah_Ha-Mim_Sajda_01AUG2026.xlsx 5
 ```
 
 
@@ -47,5 +45,5 @@ Bin_Start_Join_Time  Bin_End_Join_Time  Join_Student_Count
 20:45                20:50              49
 ```
 ### Graph (Manual)
-X-Axis Value: `Time Range (3-min intervals)`
+X-Axis Value: `Time Range (5-min intervals)`
 Y-Axis Value: `Student Count`

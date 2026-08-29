@@ -6,3 +6,4 @@ archieved/
 
 # Exclude backup files anywhere in the repo
 **/*.bkp
+

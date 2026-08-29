@@ -301,7 +301,7 @@ def add_active_student_time_series(file_path, interval_minutes=3):
     
 
 def add_join_time_chart(file_path):
-    """Add 'Early & Late Joiners' chart to a new worksheet"""
+    """Add 'Late Joiners' chart to a new worksheet"""
     
     wb = load_workbook(file_path)
     ws_data = wb['Time_Sheet_Curated']
@@ -315,11 +315,11 @@ def add_join_time_chart(file_path):
             values.append(val)
     
     if join_last_row > 3:
-        ws_join = wb.create_sheet('Early & Late Joiners')
+        ws_join = wb.create_sheet('Late Joiners')
         
         chart = BarChart()
         chart.type = "col"
-        chart.title = "Early & Late Join"
+        chart.title = "Late Joiners"
         chart.y_axis.title = "Student Count"
         chart.x_axis.title = "Time"     
         _style_chart_titles(chart)   
@@ -366,7 +366,7 @@ def add_join_time_chart(file_path):
         x_pp = ParagraphProperties(defRPr=x_cp)
         chart.x_axis.txPr = RichText(p=[Paragraph(pPr=x_pp, endParaRPr=x_cp)])
         
-        ws_join.add_chart(chart, "A1")
+        ws_join.add_chart(chart, "A4")
         wb.save(file_path)
         print(f"✓ Join time chart added")
 
@@ -437,7 +437,7 @@ def add_leave_time_chart(file_path):
         x_pp = ParagraphProperties(defRPr=x_cp)
         chart.x_axis.txPr = RichText(p=[Paragraph(pPr=x_pp, endParaRPr=x_cp)])
         
-        ws_leave.add_chart(chart, "A1")
+        ws_leave.add_chart(chart, "A4")
         wb.save(file_path)
         print(f"✓ Leave time chart added")
 
@@ -497,7 +497,7 @@ def add_active_time_chart(file_path):
         x_pp = ParagraphProperties(defRPr=x_cp)
         chart.x_axis.txPr = RichText(p=[Paragraph(pPr=x_pp, endParaRPr=x_cp)])
         
-        ws_active.add_chart(chart, "A1")
+        ws_active.add_chart(chart, "A4")
         wb.save(file_path)
         print(f"✓ Active time chart added")
 
