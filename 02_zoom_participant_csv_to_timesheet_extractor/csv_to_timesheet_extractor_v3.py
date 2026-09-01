@@ -2,6 +2,7 @@ import pandas as pd
 import sys
 from datetime import datetime, timedelta
 import re
+from openpyxl import load_workbook
 from openpyxl.styles import PatternFill, Font
 import pdb
 
@@ -465,7 +466,45 @@ def apply_conditional_formatting(workbook, worksheet, participants_data, start_r
                 leave_cell.fill = amber_fill
                 leave_cell.font = black_font
 
-def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_mapping_file_path='naqeeb_to_initial_KARMH-02.csv'):
+def remove_rows_with_empty_naqeeb_name(excel_file_path):
+    """Delete rows with blank Naqeeb Name values from the generated Excel output."""
+    try:
+        workbook = load_workbook(excel_file_path, data_only=True)
+        ws = workbook.active
+
+        if ws.max_row < 4:
+            print("Warning: Generated sheet is too short to contain data rows; no rows were removed.")
+            return excel_file_path
+
+        naqeeb_col = 'E'
+        header_row = 3
+        data_rows = []
+
+        for row in range(header_row + 1, ws.max_row + 1):
+            cell_value = ws[f'{naqeeb_col}{row}'].value
+            if cell_value is not None and str(cell_value).strip() != '':
+                data_rows.append(row)
+
+        if not data_rows:
+            print(f"No non-empty Naqeeb Name values found in {excel_file_path}; file remains unchanged.")
+            return excel_file_path
+
+        keep_rows = [3] + data_rows
+        rows_to_remove = [r for r in range(4, ws.max_row + 1) if r not in data_rows]
+
+        if rows_to_remove:
+            for row_num in sorted(rows_to_remove, reverse=True):
+                ws.delete_rows(row_num, 1)
+
+        workbook.save(excel_file_path)
+        print(f"Removed rows with empty 'Naqeeb Name' values from: {excel_file_path}")
+        return excel_file_path
+    except Exception as e:
+        print(f"Warning: Could not clean rows with empty Naqeeb Name values: {str(e)}")
+        return None
+
+
+def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_mapping_file_path='naqeeb_to_initial_KARMH-02.csv', DELETED_NON_NAQEEB_ROWS='N'):
     """
     Convert Zoom CSV to Excel timesheet
     
@@ -473,6 +512,7 @@ def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_ma
     csv_file_path (str): Path to the CSV file
     start_time (str): Start time for the session
     end_time (str): End time for the session
+    DELETED_NON_NAQEEB_ROWS (str): 'Y' deletes rows with blank Naqeeb Name values from the generated Excel file.
     """
     
     try:        
@@ -597,6 +637,11 @@ def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_ma
                 worksheet2['F1'] = end_time
                 apply_conditional_formatting(workbook, worksheet2, below_threshold_df.to_dict('records'))
         
+        if str(DELETED_NON_NAQEEB_ROWS).strip().upper() == 'Y':
+            cleaned_file = remove_rows_with_empty_naqeeb_name(filename)
+            if cleaned_file is None:
+                print(f"Warning: Failed to remove non-Naqeeb rows from {filename}")
+
         if ENABLE_DURATION_THRESHOLD:
             print(f"Successfully created timesheet: {filename}")
             print(f"Date: {session_date}")
@@ -623,16 +668,23 @@ def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_ma
 
 def main():
     """Main function to handle command line arguments"""
-    if len(sys.argv) != 5:
-        print("Usage: python script.py <csv_file_path> <naqeeb_mapping_file_path> <start_time> <end_time>")        
+    if len(sys.argv) not in (5, 6):
+        print("Usage: python script.py <csv_file_path> <naqeeb_mapping_file_path> <start_time> <end_time> [DELETED_NON_NAQEEB_ROWS]")
         sys.exit(1)
     
     csv_file_path = sys.argv[1]
     naqeeb_mapping_file_path = sys.argv[2]
     start_time = sys.argv[3]
     end_time = sys.argv[4]
+    deleted_non_naqeeb_rows = sys.argv[5] if len(sys.argv) == 6 else 'N'
     
-    result = convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_mapping_file_path)
+    result = convert_zoom_csv_to_timesheet(
+        csv_file_path,
+        start_time,
+        end_time,
+        naqeeb_mapping_file_path,
+        DELETED_NON_NAQEEB_ROWS=deleted_non_naqeeb_rows,
+    )
     
     if result:
         print(f"Timesheet generated successfully: {result}")

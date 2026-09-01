@@ -28,7 +28,7 @@ try {
     $mapping = Join-Path $scriptRoot '..\02_zoom_participant_csv_to_timesheet_extractor\naqeeb_to_initial_TSAP-02.csv'
     $started = Get-Date
 
-    & $python $converter $csvFiles[0].FullName $mapping $config['start_time'] $config['end_time']
+    & $python $converter $csvFiles[0].FullName $mapping $config['start_time'] $config['end_time'] $config['delete_non_naqeeb_records']
     if ($LASTEXITCODE -ne 0) { throw 'csv_to_timesheet_extractor_v3.py failed.' }
     $timesheet = Get-ChildItem -Path $scriptRoot -Filter '*.xlsx' -File | Where-Object { $_.Name -notlike '*_with_report.xlsx' -and $_.LastWriteTime -ge $started } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
     if (-not $timesheet) { throw 'The CSV converter did not create an Excel output file.' }
