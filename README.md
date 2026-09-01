@@ -51,6 +51,35 @@ py -m pip install -r requirements.txt
 
 This installs the packages needed by the scripts in the project folders.
 
+## Simple PowerShell setup and run
+
+The `ps-mode` folder provides an easier option for users who do not want to type Python commands manually.
+
+1. Copy exactly one Zoom participant CSV file whose name starts with `participant` into the `ps-mode` folder.
+2. Open the `ps-mode` folder in File Explorer.
+3. Right-click inside the folder while holding `Shift`, then select "Open PowerShell window here".
+4. Run the setup script:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\setup.ps1
+```
+
+The setup script opens PowerShell as administrator when required, installs Python only when it is missing, verifies Python, and installs only missing packages from `..\requirement.txt`.
+
+5. Update `params.info` if the session times, bin size, or other settings need to change.
+6. Run the script for the required batch:
+
+```powershell
+.\KARMH-02.ps1
+.\HYDLH-01.ps1
+.\TSAP-02.ps1
+```
+
+Run only one batch script at a time. Each script reads the matching mapping CSV, runs both Python programs, and places the generated Excel files in `ps-mode`.
+
+If there is no participant CSV, or more than one participant CSV, the process stops and records the reason in `ps-mode\error.logs`. Other errors are also recorded there.
+
 ## 1) Attendance Extractor
 
 Run the program:

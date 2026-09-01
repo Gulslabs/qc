@@ -624,8 +624,7 @@ def convert_zoom_csv_to_timesheet(csv_file_path, start_time, end_time, naqeeb_ma
 def main():
     """Main function to handle command line arguments"""
     if len(sys.argv) != 5:
-        print("Usage: python script.py <csv_file_path> <naqeeb_mapping_file_path> <start_time> <end_time>")
-        print("Example: python script.py zoom_data.csv '07:30:00 PM' '11:00:00 PM'")
+        print("Usage: python script.py <csv_file_path> <naqeeb_mapping_file_path> <start_time> <end_time>")        
         sys.exit(1)
     
     csv_file_path = sys.argv[1]
